@@ -5,7 +5,7 @@
 This project contains end-to-end automated tests for the [SauceDemo](https://www.saucedemo.com/) web application.  
 The tests are implemented using **Playwright with TypeScript** and follow the **Page Object Model (POM)** design pattern.
 
-Еhis project is demonstrate practical automation testing skills, clean test code, and maintainable test structure.
+This project is demonstrate practical automation testing skills, clean test code, and maintainable test structure.
 
 ---
 
