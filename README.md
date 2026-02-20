@@ -15,6 +15,7 @@ This repository contains my QA practice projects including:
 
 ## 🔹 Automation (in progress)
 - Python Robot Framework
+- Typescript Playwright 
 - Converting manual test cases into automated tests
 
 ----------------------------------------------------------
@@ -25,6 +26,7 @@ This repository contains my QA practice projects including:
 - Chrome DevTools
 - PyCharm
 - Python
+- Typescript 
 ----------------------------------------------------------
 
 📌 This portfolio demonstrates structured test documentation, bug reporting skills and understanding of QA workflow.
