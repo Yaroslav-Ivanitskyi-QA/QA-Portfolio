@@ -1,0 +1,224 @@
+{
+  "info": {
+    "_postman_id": "4ad0c1dd-f88e-401a-828c-5847db35c582",
+    "name": "Task: API Testing - Reqqres User & Login API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52574350",
+    "_collection_link": "https://go.postman.co/collection/52574350-4ad0c1dd-f88e-401a-828c-5847db35c582?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Users",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response has users array\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.users).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body contains:\", function(){\r",
+              "    var jsonData = pm.response.json();\r",
+              "   pm.expect(jsonData).to.have.property(\"users\");\r",
+              "    pm.expect(jsonData).to.have.property(\"total\");\r",
+              "    pm.expect(jsonData).to.have.property(\"skip\");\r",
+              "    pm.expect(jsonData).to.have.property(\"limit\");\r",
+              "\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Each user contains required fields\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    for (var i = 0; i < jsonData.users.length; i++) \r",
+              "    {\r",
+              "        pm.expect(jsonData.users[i]).to.have.property(\"id\");\r",
+              "        pm.expect(jsonData.users[i]).to.have.property(\"firstName\");\r",
+              "        pm.expect(jsonData.users[i]).to.have.property(\"lastName\");\r",
+              "        pm.expect(jsonData.users[i]).to.have.property(\"email\");\r",
+              "    }\r",
+              "    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/users?id&firstName&lastName&email",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "users"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": null
+            },
+            {
+              "key": "firstName",
+              "value": null
+            },
+            {
+              "key": "lastName",
+              "value": null
+            },
+            {
+              "key": "email",
+              "value": null
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login invalid password",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"emilys\",\r\n    \"password\": \"emilysp\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response has required fields\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "\r",
+              "    pm.expect(jsonData).to.have.property(\"username\");\r",
+              "    pm.expect(jsonData).to.have.property(\"email\");\r",
+              "    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+              "    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+              "    pm.expect(jsonData).to.have.property(\"accessToken\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n    \"username\": \"emilys\",\r\n    \"password\": \"emilyspass\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
