@@ -8,15 +8,15 @@ This repository contains my QA practice projects demonstrating manual testing, A
 - Functional and UI testing
 - SauceDemo testing projects
 
-##🔹 API Testing
--REST API testing using Postman
--GET / POST validation
--Positive and negative scenarios
--Status code validation
--Response time validation
--JSON structure validation
--Postman test scripts (JavaScript assertions)
--Exported collections stored in this repository
+## 🔹 API Testing
+- REST API testing using Postman
+- GET / POST validation
+- Positive and negative scenarios
+- Status code validation
+- Response time validation
+- JSON structure validation
+- Postman test scripts (JavaScript assertions)
+- Exported collections stored in this repository
 
 ## 🔹 Test Design Techniques
 - Positive and negative scenarios
