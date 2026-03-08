@@ -33,10 +33,12 @@ This repository contains my QA practice projects demonstrating manual testing, A
 
 ### Tools Used:
 - Jira
+- TestRail
 - GitHub
 - Postman
 - Chrome DevTools
 - PyCharm
+- VS code
 - Python
 - Typescript
 - Playwright
