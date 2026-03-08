@@ -1,16 +1,16 @@
-# QA Portfolio – Yaroslav Ivanitskyi
+## 🔹 # QA Portfolio – Yaroslav Ivanitskyi
 
 This repository contains my QA practice projects demonstrating manual testing, API testing, and test automation skills.
 
 ## 🔹 Manual Testing
 - Test case design
 - Bug reports
-- Functional and UI testing
-- SauceDemo testing projects
+- Functional, Regression and UI testing
+- SauceDemo, demoblaze testing projects
 
 ## 🔹 API Testing
 - REST API testing using Postman
-- GET / POST validation
+- CRUD operations validation (GET, POST, PUT, DELETE)
 - Positive and negative scenarios
 - Status code validation
 - Response time validation
@@ -24,7 +24,7 @@ This repository contains my QA practice projects demonstrating manual testing, A
 - Basic validation logic
 - Exploratory testing approach
 
-## 🔹 Automation 
+## 🔹Test Automation 
 - Python Robot Framework
 - Typescript Playwright 
 - Converting manual test cases into automated tests
@@ -39,9 +39,6 @@ This repository contains my QA practice projects demonstrating manual testing, A
 - Chrome DevTools
 - PyCharm
 - VS code
-- Python
-- Typescript
-- Playwright
 ----------------------------------------------------------
 
 📌 This portfolio demonstrates structured test documentation, bug reporting skills and understanding of QA workflow.
