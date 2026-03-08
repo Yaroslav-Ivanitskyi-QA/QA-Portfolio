@@ -3,7 +3,11 @@ export const validUser={
     password: 'Tester@!21'
 };
 
-export const invalidUser={
-    username: 'InvalidUser',
-    password: 'WrongPassword'
+export const invalidUsername={
+    username: 'Invalid',
+    password: 'Tester@!21'
+};
+export const invalidPassword={
+    username:'TestUser!@#123',
+    password: 'Tester'
 };

@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/loginPage';
 import { validUser } from '../../test-data/users';
-import { invalidUser } from '../../test-data/users';
+import { invalidUsername } from '../../test-data/users';
+import { invalidPassword } from '../../test-data/users';
 
 test('Login with valid credentials', async({page})=>{
     const loginPage = new LoginPage(page);
@@ -14,15 +15,40 @@ test('Login with valid credentials', async({page})=>{
     await expect(page.getByText(`Welcome ${username}`)).toBeVisible();
 });
 
-test('Login with invalid credentials', async({page})=>{
+test('Login with invalid username', async({page})=>{
     const loginPage = new LoginPage(page);
-    const {username, password} = invalidUser;
+    const {username, password} = invalidUsername;
 
     await loginPage.navigateToStartPage();
-    await loginPage.loginToAccount(username, password);
+    
 
     page.once('dialog', async dialog => {
         expect(dialog.message()).toBe('User does not exist.');
         await dialog.accept();
     });
+    await loginPage.loginToAccount(username, password);
+});
+
+test('Login with invalid password', async({page})=>{
+    const loginPage = new LoginPage(page);
+    const {username, password} = invalidPassword;
+
+    await loginPage.navigateToStartPage();
+    
+    page.once('dialog', async dialog => {
+        expect(dialog.message()).toBe('Wrong password.');
+        await dialog.accept();
+    });
+    await loginPage.loginToAccount(username, password);
+});
+test('Login with empty credentials', async({page})=>{
+    const loginPage = new LoginPage(page);
+    
+    await loginPage.navigateToStartPage();
+    
+    page.once('dialog', async dialog =>{
+        expect(dialog.message()).toBe('Please fill out Username and Password.');
+        await dialog.accept();
+    });
+    await loginPage.loginToAccount('', '');
 });
