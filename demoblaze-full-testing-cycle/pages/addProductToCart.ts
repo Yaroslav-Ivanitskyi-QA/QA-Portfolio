@@ -9,7 +9,32 @@ export class AddProductToCart {
         this.page = page;
     }
 
-    async addProductToCart(ProductName: string){
+    // ===== PUBLIC METHODS =====
+
+    async addProductToCart(ProductName: string) {
+        await this.addProduct(ProductName);
+        await this.goToCart();
+        await this.getTotalPrice();        
+    }
+
+    async addMultipleProductsToCart(ProductName: Array<string>) {
+        for (let i = 0; i < ProductName.length; i++) {
+            await this.addProduct(ProductName[i]);            
+        }
+        await this.goToCart();
+        await this.getTotalPrice();
+    }
+
+    // ===== NAVIGATION METHODS =====
+
+    private async goToCart() {
+        await this.page.click('id=cartur');
+        await expect(this.page).toHaveURL('https://www.demoblaze.com/cart.html');
+    }
+
+    // ===== PRODUCT METHODS =====
+
+    private async addProduct(ProductName: string) {
         await this.page.click(`text=${ProductName}`);
 
         const [dialog] = await Promise.all([
@@ -18,14 +43,11 @@ export class AddProductToCart {
         ]);
         expect((await dialog).message()).toBe('Product added');
         await (await dialog).accept();
-
         await this.GetPriceOfOneProduct();
-        await this.page.click('id=cartur');
-
-        await expect(this.page).toHaveURL('https://www.demoblaze.com/cart.html');
-        
-        await this.getTotalPrice();        
+        await this.page.goto('https://www.demoblaze.com/');
     }
+
+    // ===== PRICE METHODS =====
 
     async GetPriceOfOneProduct(): Promise<number> {
         const priceLocator = this.page.locator('h3.price-container');
@@ -35,20 +57,14 @@ export class AddProductToCart {
         if (!text) throw new Error('Price not found in h3.price-container');
 
         const clean = text.replace(/[^\d.]/g, '');
-        this.priceProduct = Number(clean);
-            if (Number.isNaN(this.priceProduct)) throw new Error(`Unable to parse number from: ${text}`);
+        this.priceProduct = this.priceProduct + Number(clean);
+        if (Number.isNaN(this.priceProduct)) throw new Error(`Unable to parse number from: ${text}`);
 
         return this.priceProduct;
     }
-    
-    async ComparePriceInCartWithPriceOfProduct() {
-        if (this.totalPrice === this.priceProduct){
-            console.log('Total price in cart items is correct.');
-        }
-    }
 
-    async getTotalPrice(): Promise<number>{
-        const priceLocator = this.page.locator('id=totalp'); // or '#totalp'
+    async getTotalPrice(): Promise<number> {
+        const priceLocator = this.page.locator('id=totalp');
         await expect(priceLocator).toBeVisible({ timeout: 15000 });
 
         const raw = await priceLocator.textContent();
@@ -58,8 +74,14 @@ export class AddProductToCart {
         this.totalPrice = Number(clean);
 
         if (Number.isNaN(this.totalPrice)) {
-        throw new Error(`Unable to parse total price from: "${raw}"`);
+            throw new Error(`Unable to parse total price from: "${raw}"`);
+        }
+        return this.totalPrice;
     }
-    return this.totalPrice;
+
+    async ComparePriceInCartWithPriceOfProduct() {
+        if (this.totalPrice === this.priceProduct) {
+            console.log('Total price in cart items is correct.');
+        }
     }
-};
+}
