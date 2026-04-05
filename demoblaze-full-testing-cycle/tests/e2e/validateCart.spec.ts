@@ -7,7 +7,8 @@ test('Add product to cart', async({page}) => {
 
     await page.goto('https://www.demoblaze.com/');
     await addProductToCart.addProductToCart('Samsung galaxy s6');
-    await addProductToCart.ComparePriceInCartWithPriceOfProduct();
+    const isPriceCorrect = await addProductToCart.comparePriceInCartWithPriceOfProduct();
+    expect(isPriceCorrect).toBe(true);
 });
 
 test('Add multiple products to cart', async({page}) => {
@@ -16,5 +17,6 @@ test('Add multiple products to cart', async({page}) => {
     await page.goto('https://www.demoblaze.com/');
     await addProductToCart.addMultipleProductsToCart(['Samsung galaxy s6', 'Nokia lumia 1520', 'Sony Xperia Z5']);
 
-    await addProductToCart.ComparePriceInCartWithPriceOfProduct();
+    const isPriceCorrect = await addProductToCart.comparePriceInCartWithPriceOfProduct();
+    expect(isPriceCorrect).toBe(true);
 });

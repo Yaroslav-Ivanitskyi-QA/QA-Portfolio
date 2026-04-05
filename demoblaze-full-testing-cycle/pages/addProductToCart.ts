@@ -11,15 +11,15 @@ export class AddProductToCart {
 
     // ===== PUBLIC METHODS =====
 
-    async addProductToCart(ProductName: string) {
-        await this.addProduct(ProductName);
+    async addProductToCart(ProductNames: string) {
+        await this.addProduct(ProductNames);
         await this.goToCart();
         await this.getTotalPrice();        
     }
 
-    async addMultipleProductsToCart(ProductName: Array<string>) {
-        for (let i = 0; i < ProductName.length; i++) {
-            await this.addProduct(ProductName[i]);            
+    async addMultipleProductsToCart(ProductNames: Array<string>) {
+        for (let i = 0; i < ProductNames.length; i++) {
+            await this.addProduct(ProductNames[i]);            
         }
         await this.goToCart();
         await this.getTotalPrice();
@@ -43,13 +43,13 @@ export class AddProductToCart {
         ]);
         expect((await dialog).message()).toBe('Product added');
         await (await dialog).accept();
-        await this.GetPriceOfOneProduct();
+        await this.getPriceOfOneProduct();
         await this.page.goto('https://www.demoblaze.com/');
     }
 
     // ===== PRICE METHODS =====
 
-    async GetPriceOfOneProduct(): Promise<number> {
+    async getPriceOfOneProduct(): Promise<number> {
         const priceLocator = this.page.locator('h3.price-container');
         await expect(priceLocator).toBeVisible({ timeout: 15000 });
 
@@ -79,9 +79,7 @@ export class AddProductToCart {
         return this.totalPrice;
     }
 
-    async ComparePriceInCartWithPriceOfProduct() {
-        if (this.totalPrice === this.priceProduct) {
-            console.log('Total price in cart items is correct.');
-        }
+    async comparePriceInCartWithPriceOfProduct(): Promise<boolean> {
+        return this.totalPrice === this.priceProduct;
     }
 }
