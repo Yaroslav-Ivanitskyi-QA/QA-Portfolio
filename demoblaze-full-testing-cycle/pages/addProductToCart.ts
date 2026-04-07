@@ -25,6 +25,7 @@ export class AddProductToCart {
         await this.getTotalPrice();
     }
 
+
     // ===== NAVIGATION METHODS =====
 
     private async goToCart() {
@@ -45,6 +46,12 @@ export class AddProductToCart {
         await (await dialog).accept();
         await this.getPriceOfOneProduct();
         await this.page.goto('https://www.demoblaze.com/');
+    }
+    async deleteProductFromCart(ProductName: string){
+        // Find the row containing the product name and click the Delete button
+        const deleteButton = this.page.locator(`xpath=//td[contains(., '${ProductName}')]/following-sibling::td//a[contains(text(), 'Delete')]`);
+        await expect(deleteButton).toBeVisible({ timeout: 15000 });
+        await deleteButton.click();
     }
 
     // ===== PRICE METHODS =====

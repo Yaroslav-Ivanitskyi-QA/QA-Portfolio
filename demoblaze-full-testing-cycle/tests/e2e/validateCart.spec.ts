@@ -20,3 +20,11 @@ test('Add multiple products to cart', async({page}) => {
     const isPriceCorrect = await addProductToCart.comparePriceInCartWithPriceOfProduct();
     expect(isPriceCorrect).toBe(true);
 });
+
+test('Delete Product from Cart', async({page}) => {
+    const addProductToCart = new AddProductToCart(page);
+
+    await page.goto('https://www.demoblaze.com/');
+    await addProductToCart.addProductToCart('Samsung galaxy s6');
+    await addProductToCart.deleteProductFromCart('Samsung galaxy s6');
+});
