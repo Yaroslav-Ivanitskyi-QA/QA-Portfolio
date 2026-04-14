@@ -25,7 +25,6 @@ export class AddProductToCart {
         await this.getTotalPrice();
     }
 
-
     // ===== NAVIGATION METHODS =====
 
     private async goToCart() {
